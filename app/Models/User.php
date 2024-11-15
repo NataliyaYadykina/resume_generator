@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Связь с резюме
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
+    }
 }

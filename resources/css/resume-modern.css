@@ -1,0 +1,79 @@
+.resume-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-photo img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 5px solid #00bcd4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.resume-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.resume-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.job-title {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+.contact-info {
+    font-size: 1rem;
+    color: #555;
+}
+
+.resume-section {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.resume-section h3 {
+    font-size: 1.6rem;
+    color: #00bcd4;
+    margin-bottom: 15px;
+}
+
+.resume-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.resume-section ul li {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.resume-section ul li a {
+    color: #00bcd4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.resume-section ul li a:hover {
+    color: #007b8f;
+}
