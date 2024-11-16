@@ -39,7 +39,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="view_name" class="form-label">Название шаблона</label>
+            <label for="view_name" class="form-label">Название представления шаблона (доступны: base, default,
+                modern)</label>
             <input type="text" class="form-control @error('view_name') is-invalid @enderror" id="view_name"
                 name="view_name" value="{{ old('view_name', $template->view_name) }}" required>
             @error('view_name')
