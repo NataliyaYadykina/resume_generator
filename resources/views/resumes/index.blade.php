@@ -41,7 +41,7 @@
                                 <td>{{ $resume->email }}</td>
                                 <td>{{ $resume->phone }}</td>
                                 <td>{{ $resume->position }}</td>
-                                <td>{{ $resume->template ? $resume->template->name : 'Без шаблона' }}</td>
+                                <td>{{ $resume->template ? $resume->template->name : 'По умолчанию' }}</td>
                                 <td>
                                     <a href="{{ route('resumes.download', $resume->id) }}" class="btn btn-info btn-sm"
                                         target="_blank">Просмотр</a>

@@ -132,7 +132,7 @@
         <div class="mb-3">
             <label for="template_id" class="form-label">Шаблон</label>
             <select class="form-select" id="template_id" name="template_id">
-                {{-- <option value="">Выберите шаблон</option> --}}
+                <option value="">Выберите шаблон</option>
                 @foreach ($templates as $template)
                     <option value="{{ $template->id }}" {{ old('template_id') == $template->id ? 'selected' : '' }}>
                         {{ $template->name }}
