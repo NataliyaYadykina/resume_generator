@@ -43,8 +43,8 @@
                                 <td>{{ $resume->position }}</td>
                                 <td>{{ $resume->template ? $resume->template->name : 'Без шаблона' }}</td>
                                 <td>
-                                    <a href="{{ route('resumes.show', $resume->id) }}"
-                                        class="btn btn-info btn-sm">Просмотр</a>
+                                    <a href="{{ route('resumes.download', $resume->id) }}" class="btn btn-info btn-sm"
+                                        target="_blank">Просмотр</a>
                                     <a href="{{ route('resumes.edit', $resume->id) }}"
                                         class="btn btn-warning btn-sm">Редактировать</a>
 
@@ -68,4 +68,19 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alert = document.querySelector('.alert-success');
+            if (alert) {
+                setTimeout(() => {
+                    alert.style.transition = 'opacity 0.5s ease';
+                    alert.style.opacity = '0';
+                    setTimeout(() => alert.remove(), 500);
+                }, 3000);
+            }
+        });
+    </script>
 @endsection

@@ -7,22 +7,17 @@ use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Barryvdh\DomPDF\PDF;
 
 class ResumeController extends Controller
 {
     use AuthorizesRequests;
-
-    // public function __construct()
-    // {
-    //     $this->authorizeResource(Resume::class, 'resume');
-    // }
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Получаем резюме текущего пользователя
         $resumes = Auth::user()->resumes;
         return view('resumes.index', compact('resumes'));
     }
@@ -32,7 +27,6 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        // Получаем доступные шаблоны
         $templates = Template::all();
         return view('resumes.create', compact('templates'));
     }
@@ -42,13 +36,10 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {
-        // Валидация данных
         $validatedData = $this->validateResumeData($request);
 
-        // Обработка загрузки фото
         $validatedData['photo'] = $this->handlePhotoUpload($request);
 
-        // Создаем новое резюме для текущего пользователя
         Auth::user()->resumes()->create($validatedData);
 
         return redirect()->route('resumes.index')->with('success', 'Резюме создано успешно!');
@@ -69,9 +60,6 @@ class ResumeController extends Controller
      */
     public function edit(Resume $resume)
     {
-        // Проверка прав доступа
-        // $this->authorize('update', $resume);
-
         $templates = Template::all();
         return view('resumes.edit', compact('resume', 'templates'));
     }
@@ -81,16 +69,13 @@ class ResumeController extends Controller
      */
     public function update(Request $request, Resume $resume)
     {
-        // Валидация данных
         $validatedData = $this->validateResumeData($request);
 
-        // Обработка загрузки фото, если загружено новое
         $photoPath = $this->handlePhotoUpload($request);
         if ($photoPath) {
             $validatedData['photo'] = $photoPath;
         }
 
-        // Обновление резюме
         $resume->update($validatedData);
 
         return redirect()->route('resumes.index')->with('success', 'Резюме обновлено успешно!');
@@ -102,7 +87,6 @@ class ResumeController extends Controller
     public function destroy(Resume $resume)
     {
 
-        // Удаление резюме
         $resume->delete();
 
         return redirect()->route('resumes.index')->with('success', 'Резюме удалено успешно!');
@@ -111,7 +95,7 @@ class ResumeController extends Controller
     private function validateResumeData(Request $request)
     {
         return $request->validate([
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,jpg|max:2048',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'position' => 'nullable|string|max:255',
@@ -132,5 +116,17 @@ class ResumeController extends Controller
             return $request->file('photo')->store('photos', 'public');
         }
         return null;
+    }
+
+    public function downloadPdf($id)
+    {
+        $resume = Resume::where('id', $id)
+            ->where('user_id', auth()->id()) // Проверка на принадлежность текущему пользователю
+            ->firstOrFail();
+        $templateView = $resume->template->view_name ?? 'default';
+
+        $pdf = app(PDF::class);
+        $pdf->loadView("resumes.templates.{$templateView}", compact('resume'));
+        return $pdf->stream("resume_{$resume->id}.pdf");
     }
 }

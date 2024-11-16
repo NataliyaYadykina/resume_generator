@@ -4,13 +4,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('/landing');
+})->name('home');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $resumes = Auth::user()->resumes;
+    return view('/resumes.index', compact('resumes'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -24,3 +26,5 @@ require __DIR__ . '/auth.php';
 Route::resource('/templates', TemplateController::class)->middleware('auth');
 
 Route::resource('/resumes', ResumeController::class)->middleware('auth');
+
+Route::get('/resumes/{id}/download', [ResumeController::class, 'downloadPdf'])->middleware('auth')->name('resumes.download');
