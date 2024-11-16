@@ -1,66 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Resume Generator
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Resume Generator** — это веб-приложение для создания и управления резюме. Проект предоставляет удобный интерфейс для регистрации пользователей, создания резюме для различных профессий, их редактирования и скачивания в формате PDF. Приложение использует фреймворк Laravel на серверной части и Blade для генерации динамических страниц. База данных для хранения информации о пользователях и резюме используется PostgreSQL.
 
-## About Laravel
+## Основные функции:
+- **Регистрация и авторизация**: Пользователи могут создать аккаунт, авторизоваться и управлять своими резюме.
+- **Создание и редактирование резюме**: Пользователи могут создавать резюме для различных профессий, редактировать их и сохранять изменения.
+- **Скачивание резюме в формате PDF**: Резюме можно скачать в формате PDF для дальнейшего использования.
+- **Гибкость ввода данных**: Приложение позволяет пользователям вводить различные виды информации, такие как опыт работы, образование, и т.д.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Технологии
+- **Backend**: Laravel 11
+- **Frontend**: Blade, Bootstrap
+- **База данных**: PostgreSQL
+- **PDF-генерация**: Dompdf
+- **Аутентификация**: Laravel Breeze и Sanctum
+- **Стилизация**: Bootstrap, пользовательская
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Установка
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Клонируйте репозиторий:
 
-## Learning Laravel
+    ```bash
+    git clone https://github.com/NataliyaYadykina/resume_generator.git
+    cd resume_generator
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. Установите зависимости с помощью Composer:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    ```bash
+    composer install
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Настройте `.env` файл для подключения к базе данных PostgreSQL (скопируйте исходный из `.env.example`):
 
-## Laravel Sponsors
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. Установите и настройте PostgreSQL:
 
-### Premium Partners
+    - Убедитесь, что PostgreSQL установлен и работает.
+    - Создайте базу данных для проекта.
+    - Обновите параметры подключения в `.env`:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    ```ini
+    DB_CONNECTION=pgsql
+    DB_HOST=127.0.0.1
+    DB_PORT=5432
+    DB_DATABASE=your_database_name
+    DB_USERNAME=your_database_user
+    DB_PASSWORD=your_database_password
+    ```
 
-## Contributing
+5. Запустите миграции:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    php artisan migrate
+    ```
 
-## Code of Conduct
+6. Запустите сервер разработки:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```bash
+    php artisan serve
+    ```
 
-## Security Vulnerabilities
+Теперь приложение доступно по адресу [http://localhost:8000](http://localhost:8000).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Использование
 
-## License
+- **Регистрация**: Зарегистрируйтесь на сайте, указав минимальные данные (имя, email и пароль).
+- **Создание резюме**: После авторизации создайте новое резюме, выбрав подходящий шаблон и заполнив соответствующие поля.
+- **Редактирование**: Вы можете редактировать созданное резюме в любой момент.
+- **Скачивание**: После завершения работы с резюме, вы можете скачать его в формате PDF.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Дальнейшее развитие
+
+- Добавление новых шаблонов резюме.
+- Поддержка нескольких языков.
+- Разработка административной панели для управления пользователями и резюме.
+- Интеграция с внешними API для автозаполнения данных в резюме.
+
